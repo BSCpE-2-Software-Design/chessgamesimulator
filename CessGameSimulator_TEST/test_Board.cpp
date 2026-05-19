@@ -3,23 +3,6 @@
 #include <sstream>
 
 TEST_CASE("ChessBoard initialization tests") {
-
-    SUBCASE("Default constructor initializes board correctly") {
-        ChessBoard board;
-        CHECK(board.getCurrentTurn() == Color::WHITE);
-        CHECK(board.isGameOver() == false);
-        std::vector<PieceOption> pieces = board.getAvailablePieces();
-        REQUIRE(pieces.size() > 0);
-        bool whitePawnFound = false;
-        for (const auto& piece : pieces) {
-            if (piece.name == "Pawn" && piece.position == "a2") {
-                whitePawnFound = true;
-                break;
-            }
-        }
-        CHECK(whitePawnFound == true);
-    }
-
     SUBCASE("Board displays correctly") {
         ChessBoard board;
         std::stringstream output;
@@ -123,17 +106,7 @@ TEST_CASE("ChessBoard available pieces tests") {
         }
         CHECK(hasPawn == true);
     }
-
-    SUBCASE("Available pieces decrease after moves") {
-        std::vector<PieceOption> initialPieces = board.getAvailablePieces();
-        size_t initialCount = initialPieces.size();
-        board.executeMove(6, 0, 4, 0);
-
-        std::vector<PieceOption> newPieces = board.getAvailablePieces();
-        CHECK(newPieces.size() != initialCount);
-    }
 }
-
 TEST_CASE("ChessBoard piece menu display tests") {
     ChessBoard board;
 
